@@ -14,13 +14,15 @@ void SwapPosition(Rectangle rect1, Rectangle rect2, Rectangle rect3)
     if (rect2.x < screenWidth-200 )
     {
          if (rect3.x > rect2.x && rect2.x > rect1.x) 
-    {
-        adversaries[0].adversaryRepresent.x = adversaries[1].adversaryRepresent.x + 100;   
-    }
-    if (rect3.x > rect1.x && rect1.x > rect2.x)
-    {
-        adversaries[1].adversaryRepresent.x = adversaries[0].adversaryRepresent.x + 100;
-    }
+        {
+            adversaries[0].adversaryRepresent.x = adversaries[1].adversaryRepresent.x + 100; 
+            adversaries[1].adversarySpeed *= 2;  
+        }
+        if (rect3.x > rect1.x && rect1.x > rect2.x)
+        {
+            adversaries[1].adversaryRepresent.x = adversaries[0].adversaryRepresent.x + 100;
+            adversaries[0].adversarySpeed *= 2; 
+        }
     }
     
 
@@ -40,9 +42,9 @@ void GenerateLvlTwo()
             {
                 if (ii == 0) 
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{45,200}, Vector2{60,60}, 540.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{45,200}, Vector2{60,60}, 720.f));
                 }
-                adversaries.push_back(GenerateAdversary(Vector2{200,300}, Vector2{60,60}, 540.f));
+                adversaries.push_back(GenerateAdversary(Vector2{200,300}, Vector2{60,60}, 720.f));
                 string val = to_string(ii);
                 cout << "here is enemy " << val << endl;
                 if (ii == 1)
@@ -104,7 +106,7 @@ void GenerateLvlTwo()
         adversaries[0].adversaryRepresent.y = {(float)screenHeight/2};
         
 
-        playerPos = {20,20};
+        playerPos = {0,screenHeight/2};
         playerSize = {20,20};
 
         
@@ -116,8 +118,8 @@ void GenerateLvlTwo()
         playerWin = true;
         playGame = 0;
         levelSelection++;
-        player->playerRectangle.x = 20;
-        player->playerRectangle.y = screenHeight-200;
+        player->playerRectangle.x = 0;
+        player->playerRectangle.y = screenHeight/2;
     }
 
     

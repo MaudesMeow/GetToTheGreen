@@ -50,8 +50,8 @@ typedef struct Adversary
 
 
 
-const int screenWidth = 800;
-const int screenHeight = 450;
+const int screenWidth = 600;
+const int screenHeight = 600;
 extern int playGame;
 extern bool playerWin;
 extern bool generateAdver;
