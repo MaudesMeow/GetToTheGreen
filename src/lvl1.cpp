@@ -19,7 +19,9 @@
     vector<Adversary> adversaries;
     
 
+   
     
+
 
 
 
@@ -48,6 +50,7 @@ void GenerateLvlOne()
     DrawRectangleRec(adversaries[0].adversaryRepresent, BLUE);
     DrawRectangleRec(player->playerRectangle, RED);
     DrawRectangleRec(endPoint.endPointRepresent, GREEN);
+    DrawRectangleLines(0,0,screenWidth,screenHeight,WHITE);
 
     
    

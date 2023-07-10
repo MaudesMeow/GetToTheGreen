@@ -52,7 +52,7 @@ int main(void)
             else 
             {
                 
-                LevelGenerator(2);
+                LevelGenerator(levelSelection);
 
             }
                          

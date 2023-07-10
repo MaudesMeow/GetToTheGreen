@@ -32,7 +32,7 @@ void SwapPosition(Rectangle rect1, Rectangle rect2, Rectangle rect3)
 
 void GenerateLvlTwo()
 {
-    endPoint = GenerateEndPoint(Vector2{screenWidth-120,50},Vector2{40,40},0,true);
+    endPoint = GenerateEndPoint(Vector2{screenWidth-120,screenHeight-40},Vector2{40,40},0,true);
     
     int numOfEnemies = 2;
     if (generateAdver)

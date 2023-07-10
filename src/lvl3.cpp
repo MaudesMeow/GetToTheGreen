@@ -8,7 +8,7 @@ bool timeToGrow = true;
 
 void GenerateLvlThree()
 {
-    endPoint = GenerateEndPoint(Vector2{screenWidth-120,50},Vector2{40,40},0,true);
+    endPoint = GenerateEndPoint(Vector2{screenWidth-20,screenHeight/2},Vector2{20,20},0,true);
     
     //create the enemies
     int numOfEnemies = 4;
@@ -62,8 +62,8 @@ void GenerateLvlThree()
         adversaries[3].adversaryRepresent.y -= 75;
         adversaries[3].adversaryRepresent.height += 75;
         adversaries[2].adversaryRepresent.height += 75;
-        adversaries[3].adversaryRepresent.width += 100;
-        adversaries[2].adversaryRepresent.width += 100;
+        adversaries[3].adversaryRepresent.width += 150;
+        adversaries[2].adversaryRepresent.width += 150;
         timeToGrow = false;
     }
 
@@ -73,8 +73,8 @@ void GenerateLvlThree()
         adversaries[3].adversaryRepresent.y -= 75;
         adversaries[3].adversaryRepresent.height += 75;
         adversaries[2].adversaryRepresent.height += 75;
-        adversaries[3].adversaryRepresent.width += 100;
-        adversaries[2].adversaryRepresent.width += 100;
+        adversaries[3].adversaryRepresent.width += 150;
+        adversaries[2].adversaryRepresent.width += 150;
         timeToGrow = false;
     }
     
@@ -98,7 +98,7 @@ void GenerateLvlThree()
     for (int ii = 2; ii < 4; ii++)
     {
         adversaries[ii].adversaryRepresent.x += adversaries[ii].adversarySpeed*GetFrameTime();
-
+        
         if ((adversaries[ii].adversaryRepresent.x  < 0) || (adversaries[ii].adversaryRepresent.x  > (screenWidth-400)))
         {
             adversaries[ii].adversarySpeed *= -1;

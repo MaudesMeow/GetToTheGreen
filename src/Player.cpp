@@ -17,6 +17,17 @@ Player* GeneratePlayer(Vector2 pos, Vector2 size, float speed)
 
 void PlayerMovment(Player &playerMov)
 {
+    
+
+    if (IsKeyUp(KEY_LEFT_SHIFT))
+    {
+        player->playerSpeed = 4.f;
+
+    }
+    if (IsKeyDown(KEY_LEFT_SHIFT))
+    {
+        player->playerSpeed = 8.f;
+    }
     if (IsKeyDown(KEY_W))
     {
         playerMov.playerRectangle.y -= playerMov.playerSpeed;
