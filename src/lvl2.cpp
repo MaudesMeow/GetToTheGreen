@@ -62,6 +62,7 @@ void GenerateLvlTwo()
     DrawRectangleRec(adversaries[0].adversaryRepresent, BLUE);
     DrawRectangleRec(adversaries[1].adversaryRepresent, LIGHTGRAY);
     DrawRectangleRec(endPoint.endPointRepresent,GREEN);
+    DrawRectangleLines(0,0,screenWidth,screenHeight,WHITE);
     
     
     DrawRectangleRec(player->playerRectangle, RED);

@@ -35,7 +35,7 @@ void GenerateLvlThree()
                 
                 string val = to_string(ii);
                 cout << "here is enemy " << val << endl;
-                if (ii == 1)
+                if (ii == 4)
                 {
                     generateAdver = false;
                 }
@@ -52,6 +52,7 @@ void GenerateLvlThree()
     DrawRectangleRec(adversaries[2].adversaryRepresent, BLUE);
     DrawRectangleRec(adversaries[3].adversaryRepresent, LIGHTGRAY);
     DrawRectangleRec(endPoint.endPointRepresent,GREEN);
+    DrawRectangleLines(0,0,screenWidth,screenHeight,WHITE);
     
     
     DrawRectangleRec(player->playerRectangle, RED);
@@ -109,74 +110,28 @@ void GenerateLvlThree()
 
     
     
-     //lose game
-    if (CheckCollisionRecs(player->playerRectangle, adversaries[0].adversaryRepresent))
+     
+
+    for (int ii = 0; ii < adversaries.size(); ii++)
     {
-        playGame = 0;
-        playerWin = false;
-        adversaries[0].adversaryRepresent.x = {(float)screenWidth/2};
-        adversaries[0].adversaryRepresent.y = {(float)screenHeight/2};
-        
+        if (CheckCollisionRecs(player->playerRectangle, adversaries[ii].adversaryRepresent))
+        {
+            playGame = 0;
+            playerWin = false;
+            adversaries[ii].adversaryRepresent.x = {(float)screenWidth/2};
+            adversaries[ii].adversaryRepresent.y = {(float)screenHeight/2};
+            
 
-        playerPos = {0,screenHeight/2};
-        playerSize = {20,20};
-        timeToGrow = true;
+            playerPos = {0,screenHeight/2};
+            playerSize = {20,20};
 
-        
-        player = GeneratePlayer(playerPos, playerSize, 4.f);   
-    }
-    
-    if (CheckCollisionRecs(player->playerRectangle, adversaries[1].adversaryRepresent))
-    {
-        playGame = 0;
-        playerWin = false;
-        adversaries[0].adversaryRepresent.x = {(float)screenWidth/2};
-        adversaries[0].adversaryRepresent.y = {(float)screenHeight/2};
-        
-
-        playerPos = {0,screenHeight/2};
-        playerSize = {20,20};
-
-        
-        player = GeneratePlayer(playerPos, playerSize, 4.f);   
-        timeToGrow = true;
+            
+            player = GeneratePlayer(playerPos, playerSize, 4.f);   
+            timeToGrow = true;
+        }
     }
 
-    //lose game
-    if (CheckCollisionRecs(player->playerRectangle, adversaries[2].adversaryRepresent))
 
-
-    {
-        playGame = 0;
-        playerWin = false;
-        adversaries[0].adversaryRepresent.x = {(float)screenWidth/2};
-        adversaries[0].adversaryRepresent.y = {(float)screenHeight/2};
-        
-
-        playerPos = {0,screenHeight/2};
-        playerSize = {20,20};
-
-        
-        player = GeneratePlayer(playerPos, playerSize, 4.f);   
-        timeToGrow = true;
-    }
-    
-    if (CheckCollisionRecs(player->playerRectangle, adversaries[3].adversaryRepresent))
-    {
-        playGame = 0;
-        playerWin = false;
-        adversaries[0].adversaryRepresent.x = {(float)screenWidth/2};
-        adversaries[0].adversaryRepresent.y = {(float)screenHeight/2};
-        
-
-        playerPos = {0,screenHeight/2};
-        playerSize = {20,20};
-
-        
-        player = GeneratePlayer(playerPos, playerSize, 4.f);   
-        timeToGrow = true;
-    }
-    
     //win game
     if (CheckCollisionRecs(player->playerRectangle, endPoint.endPointRepresent))
     {
@@ -192,5 +147,5 @@ void GenerateLvlThree()
 
         
 
-}
+};
 

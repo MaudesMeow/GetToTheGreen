@@ -2,13 +2,16 @@
 
 using namespace std;
 
-int playGame = 1;
+int playGame = 0;
 int levelSelection = 0;
 bool generateAdver = true;
+
+
 
 int main(void)
 {
 
+    
     
 
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
@@ -29,7 +32,17 @@ int main(void)
        
             ClearBackground(BLACK);
             
-            if (playGame == 0 && !playerWin)
+            if (levelSelection == 0 && playGame == 0)
+            {
+                DrawText("Welcome to the game, friend. here's a simple one for ya. \n (Y to continue, ESC to leave)", 16, screenHeight/2, 18, WHITE);
+                if (IsKeyDown(KEY_Y))
+                {
+                    levelSelection++;
+                    playGame = 1;
+                }
+            }
+
+            if (playGame == 0 && !playerWin && levelSelection > 0)
             {
                 DrawText("play again? oyu lost...", screenWidth/2, screenHeight/2, 20, WHITE);
                 if (IsKeyDown(KEY_Y))
@@ -39,7 +52,7 @@ int main(void)
                     generateAdver = true;
                 }
             } 
-            else if (playGame == 0 && playerWin)
+            else if (playGame == 0 && playerWin && levelSelection > 0)
             {
                 DrawText("play again? oyu won!...", screenWidth/2, screenHeight/2, 20, WHITE);
                 if (IsKeyDown(KEY_Y))
@@ -52,7 +65,7 @@ int main(void)
             else 
             {
                 
-                LevelGenerator(3);
+                LevelGenerator(4);
 
             }
                          
@@ -63,71 +76,11 @@ int main(void)
     
 
     return 0;
-}
+};
 
 
 
 
 
-//lose game
-            // if (CheckCollisionPointRec(position, enemyRect))
-            // {
-            //     position = {20,20};
-            //     playGame = false;
-                
-            //     enemyPosition = {(float)screenWidth/2, (float)screenHeight/2};
-            //     playerRect.x = SquarePosition.x;
-            //     playerRect.y = SquarePosition.y;
-            //     if (playerScore > 0)
-            //     {
-            //         playerScore--;
-            //         enemySpeed /= 2;
-            //     }
-            //     s = to_string(playerScore);
-            //     pchar = s.c_str();
-            //     gameOver = "You lose! Play again?  Y or N";
-            //     gameOverChar = gameOver.c_str();
-                
-            // }
 
-            //win game
-            // if (CheckCollisionPointRec(position, winBlock) ) 
-            // {
-            //     position = {20,20};
-            //     playGame = false;
-            //     enemyPosition = {(float)screenWidth/2, (float)screenHeight/2};
-            //     playerRect.x = SquarePosition.x;
-            //     playerRect.y = SquarePosition.y;
-            //     playerScore ++;
-            //     s = to_string(playerScore);
-            //     pchar = s.c_str();
-            //     if (enemySpeed < 540) 
-            //     {
-            //         enemySpeed *=2;
-            //     }
-                
-            //     gameOver = "You win! Play again? \n Y or N";
-            //     gameOverChar = gameOver.c_str();
-                
-                
-            // }
 
-            // if (playGame) 
-            // {
-               
-                
-                
-            //     // DrawRectangleRec(playerRect, RED);
-            //     // DrawRectangleRec(enemyRect, BLUE);
-            //     DrawRectangleRec(winBlock,GREEN);
-            //     DrawText(pchar,(screenWidth -30),20,20,WHITE);
-            // } 
-            
-            // else {
-            //     DrawText(gameOverChar, screenWidth/2,screenHeight/2,20, WHITE);
-            //     if (IsKeyDown(KEY_Y))
-            //     {
-                    
-            //         playGame = true;
-            //     }
-            // }

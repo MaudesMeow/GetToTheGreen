@@ -3,14 +3,19 @@
 
 
  
-void SquareTravel(Adversary adversarySquare, int bottomX, int topX, int leftY, int rightY)
+      
+int bottomX = 0;
+int topX = screenWidth;
+int leftY = 0;
+int rightY = screenHeight;
+bool movingLeftToRight = true;
+bool movingRighttoLeft = false;
+bool movingUpDown = false;
+bool movingDownUp = false;
+
+void ahh()
 {
-    adversarySquare.adversaryRepresent.x += adversarySquare.adversarySpeed*GetFrameTime();
-    if ((adversarySquare.adversaryRepresent.x  < bottomX) || (adversarySquare.adversaryRepresent.x  > topX))
-        {
-            adversarySquare.adversarySpeed *= -1;
-        }
-        
+    cout << "I don't fricken know" << endl;
 }
 
 
@@ -27,7 +32,7 @@ void GenerateLvlFour()
             {
                 if (ii == 0) 
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{40,40}, Vector2{60,60}, 180.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{0,0}, Vector2{60,60}, 180.f));
                 }
                 if (ii ==1)
                 {
@@ -41,8 +46,7 @@ void GenerateLvlFour()
                     adversaries.push_back(GenerateAdversary(Vector2{1,screenHeight-120}, Vector2{100,120}, 540.f));
                 }
                 
-                string val = to_string(ii);
-                cout << "here is enemy " << val << endl;
+                
                 if (ii == 1)
                 {
                     generateAdver = false;
@@ -59,16 +63,58 @@ void GenerateLvlFour()
     DrawRectangleRec(endPoint.endPointRepresent,GREEN);    
     DrawRectangleRec(player->playerRectangle, RED);
 
+    //-------------MOVEMENT-----------------------------------------------------//
+    if(adversaries[0].adversaryRepresent.y <= leftY && adversaries[0].adversaryRepresent.x >= bottomX && movingLeftToRight)
+    {
+        movingDownUp = false;
+        adversaries[0].adversaryRepresent.y = leftY;
+        adversaries[0].adversaryRepresent.x += adversaries[0].adversarySpeed*GetFrameTime();
+        movingUpDown = true;
+        ahh();
+        
+    }
+    if (adversaries[0].adversaryRepresent.x >= topX-60 && adversaries[0].adversaryRepresent.y <= rightY &&movingUpDown)
+    {
+        movingLeftToRight = false;
+        
+        adversaries[0].adversaryRepresent.x = topX-60;
+        adversaries[0].adversaryRepresent.y += adversaries[0].adversarySpeed*GetFrameTime();
+        movingRighttoLeft = true;
+        
+    }
+    if(adversaries[0].adversaryRepresent.y >= rightY-60 && adversaries[0].adversaryRepresent.x > bottomX-60 &&movingRighttoLeft )
+    {
+        movingUpDown = false;
+        adversaries[0].adversaryRepresent.y = rightY-60;
+        adversaries[0].adversaryRepresent.x += adversaries[0].adversarySpeed*GetFrameTime()*-1;
+        movingDownUp = true;
+        
+
+        
+    }
+
+    if(adversaries[0].adversaryRepresent.y <= rightY-60 && adversaries[0].adversaryRepresent.x <= bottomX && movingDownUp)
+    {
+        movingRighttoLeft = false;
+        adversaries[0].adversaryRepresent.x = bottomX;
+        adversaries[0].adversaryRepresent.y += adversaries[0].adversarySpeed*GetFrameTime()*-1;
+        movingLeftToRight = true;
+        
+    }
+
+
     
-    SquareTravel(adversaries[0], 0, screenWidth, 0, screenHeight);
     
-     //lose game
+        
+        
+    
+     //-----------------losing or winning game!--------------------//
     if (CheckCollisionRecs(player->playerRectangle, adversaries[0].adversaryRepresent))
     {
         playGame = 0;
         playerWin = false;
-        adversaries[0].adversaryRepresent.x = {(float)screenWidth/2};
-        adversaries[0].adversaryRepresent.y = {(float)screenHeight/2};
+        adversaries[0].adversaryRepresent.x = 0;
+        adversaries[0].adversaryRepresent.y = 0;
         
 
         playerPos = {0,screenHeight/2};
