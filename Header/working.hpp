@@ -102,6 +102,11 @@ void SwapPosition(Rectangle rect1, Rectangle rect2, Rectangle rect3);
 
 void GenerateLvlThree();
 
+//lvl4.cpp
+
+void GenerateLvlFour();
+void SquareTravel(Adversary adversarySquare, int bottomX, int topX, int leftY, int rightY);
+
 
 
 

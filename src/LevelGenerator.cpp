@@ -19,6 +19,11 @@ void LevelGenerator(int lvlValue)
         case 2:
             GenerateLvlThree();
             break;
+        case 3:
+            GenerateLvlFour();
+            break;
+        default:
+            break;
 
     }
 
