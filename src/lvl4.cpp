@@ -4,19 +4,55 @@
 
  
       
-int bottomX = 0;
-int topX = screenWidth;
-int leftY = 0;
-int rightY = screenHeight;
+int leftX = 0;
+int rightX = screenWidth;
+int topY = 0;
+int bottomY = screenHeight;
 bool movingLeftToRight = true;
 bool movingRighttoLeft = false;
 bool movingUpDown = false;
 bool movingDownUp = false;
 
-void ahh()
+void SquarePattern(Rectangle& adRec,int speed, int leftX, int rightX, int topY, int bottomY)
 {
-    cout << "I don't fricken know" << endl;
+    
+     if(adRec.y <= topY+40 && adRec.x >= leftX )
+     {
+        movingDownUp = false;
+        adRec.y = topY+40;
+        adRec.x += speed*GetFrameTime();
+        movingUpDown = true;
+        
+     }
+     if (adRec.x >= rightX-60 && adRec.y <= bottomY )
+    {
+        movingLeftToRight = false;
+        
+        adRec.x = rightX-60;
+        adRec.y += speed*GetFrameTime();
+        movingRighttoLeft = true;
+        
+    }
+
+    if(adRec.y >= bottomY-60 && adRec.x > leftX-60 )
+    {
+        movingUpDown = false;
+        adRec.y = bottomY-60;
+        adRec.x += speed*GetFrameTime()*-1;
+        movingDownUp = true;   
+    }
+
+    if(adRec.y <= bottomY-40 && adRec.x <= leftX+25 )
+    {
+        movingRighttoLeft = false;
+        adRec.x = leftX+25;
+        adRec.y += speed*GetFrameTime()*-1;
+        movingLeftToRight = true;
+        
+    }
 }
+
+
 
 
 void GenerateLvlFour()
@@ -24,7 +60,7 @@ void GenerateLvlFour()
     endPoint = GenerateEndPoint(Vector2{screenWidth-20,screenHeight/2},Vector2{20,20},0,true);
     
     //create the enemies
-    int numOfEnemies = 4;
+    int numOfEnemies =6;
     if (generateAdver)
     {
         cout << numOfEnemies << endl;
@@ -32,18 +68,26 @@ void GenerateLvlFour()
             {
                 if (ii == 0) 
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{0,0}, Vector2{60,60}, 180.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{0,40}, Vector2{40,40}, 1200.f));
                 }
                 if (ii ==1)
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{200,300}, Vector2{60,60}, 540.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{0,80}, Vector2{40,40}, 540.f));
                 }
                 if (ii ==2)
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{1,screenHeight-600}, Vector2{100,120}, 540.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{screenWidth-40,screenHeight-250}, Vector2{40,250}, 540.f));
                 }if (ii ==3)
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{1,screenHeight-120}, Vector2{100,120}, 540.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{0,0}, Vector2{40,40}, 540.f));
+                }
+                if (ii ==4)
+                {
+                    adversaries.push_back(GenerateAdversary(Vector2{screenWidth-40,0}, Vector2{40,250}, 540.f));
+                }
+                if (ii ==6)
+                {
+                    adversaries.push_back(GenerateAdversary(Vector2{0,120}, Vector2{40,80}, 540.f));
                 }
                 
                 
@@ -60,53 +104,25 @@ void GenerateLvlFour()
     //draw my adversaries
     
     DrawRectangleRec(adversaries[0].adversaryRepresent, BLUE);
+    DrawRectangleRec(adversaries[1].adversaryRepresent, BLUE);
+    DrawRectangleRec(adversaries[2].adversaryRepresent, BLUE);
+    DrawRectangleRec(adversaries[3].adversaryRepresent, BLUE);
+    DrawRectangleRec(adversaries[4].adversaryRepresent, BLUE);
+    DrawRectangleRec(adversaries[5].adversaryRepresent, BLUE);
+
     DrawRectangleRec(endPoint.endPointRepresent,GREEN);    
     DrawRectangleRec(player->playerRectangle, RED);
 
     //-------------MOVEMENT-----------------------------------------------------//
-    if(adversaries[0].adversaryRepresent.y <= leftY && adversaries[0].adversaryRepresent.x >= bottomX && movingLeftToRight)
-    {
-        movingDownUp = false;
-        adversaries[0].adversaryRepresent.y = leftY;
-        adversaries[0].adversaryRepresent.x += adversaries[0].adversarySpeed*GetFrameTime();
-        movingUpDown = true;
-        ahh();
-        
-    }
-    if (adversaries[0].adversaryRepresent.x >= topX-60 && adversaries[0].adversaryRepresent.y <= rightY &&movingUpDown)
-    {
-        movingLeftToRight = false;
-        
-        adversaries[0].adversaryRepresent.x = topX-60;
-        adversaries[0].adversaryRepresent.y += adversaries[0].adversarySpeed*GetFrameTime();
-        movingRighttoLeft = true;
-        
-    }
-    if(adversaries[0].adversaryRepresent.y >= rightY-60 && adversaries[0].adversaryRepresent.x > bottomX-60 &&movingRighttoLeft )
-    {
-        movingUpDown = false;
-        adversaries[0].adversaryRepresent.y = rightY-60;
-        adversaries[0].adversaryRepresent.x += adversaries[0].adversarySpeed*GetFrameTime()*-1;
-        movingDownUp = true;
-        
-
-        
-    }
-
-    if(adversaries[0].adversaryRepresent.y <= rightY-60 && adversaries[0].adversaryRepresent.x <= bottomX && movingDownUp)
-    {
-        movingRighttoLeft = false;
-        adversaries[0].adversaryRepresent.x = bottomX;
-        adversaries[0].adversaryRepresent.y += adversaries[0].adversarySpeed*GetFrameTime()*-1;
-        movingLeftToRight = true;
-        
-    }
 
 
-    
-    
-        
-        
+    SquarePattern(adversaries[0].adversaryRepresent,adversaries[0].adversarySpeed,leftX,rightX-30,topY,bottomY);
+
+    SquarePattern(adversaries[1].adversaryRepresent,adversaries[1].adversarySpeed,leftX+50,rightX-50,50,screenHeight-60);
+
+
+    SquarePattern(adversaries[5].adversaryRepresent,adversaries[5].adversarySpeed,leftX+80,rightX-80,80,screenHeight-80);
+
     
      //-----------------losing or winning game!--------------------//
     if (CheckCollisionRecs(player->playerRectangle, adversaries[0].adversaryRepresent))

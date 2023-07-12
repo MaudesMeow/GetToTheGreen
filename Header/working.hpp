@@ -105,8 +105,7 @@ void GenerateLvlThree();
 //lvl4.cpp
 
 void GenerateLvlFour();
-void SquareTravel(Adversary adversarySquare, int bottomX, int topX, int leftY, int rightY);
-
+void SquarePattern(Rectangle& adRec,int speed, int leftX, int rightX, int topY, int bottomY);
 
 
 
