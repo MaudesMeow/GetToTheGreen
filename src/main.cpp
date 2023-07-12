@@ -50,11 +50,24 @@ int main(void)
                     playGame = 1;
                     adversaries.clear();
                     generateAdver = true;
+                    adversaries.clear();
                 }
             } 
             else if (playGame == 0 && playerWin && levelSelection > 0)
             {
-                DrawText("play again? oyu won!...", screenWidth/2, screenHeight/2, 20, WHITE);
+                switch(levelSelection)
+                {
+                    case 2:
+                        DrawText("This one is a little tougher, careful of the ol'switcharoo!", 0, screenHeight/2, 20, WHITE);
+                        break;
+                    case 3:
+                        DrawText("third verse, more clastrophobic than the last!", 0, screenHeight/2, 20, WHITE);
+                        break;
+                    default:
+                        DrawText("play again? oyu won!...", screenWidth/2, screenHeight/2, 20, WHITE);
+                        break;
+
+                }
                 if (IsKeyDown(KEY_Y))
                 {
                     playGame = 1;
@@ -65,7 +78,7 @@ int main(void)
             else 
             {
                 
-                LevelGenerator(4);
+                LevelGenerator(levelSelection);
 
             }
                          

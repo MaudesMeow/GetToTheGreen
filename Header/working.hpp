@@ -105,8 +105,8 @@ void GenerateLvlThree();
 //lvl4.cpp
 
 void GenerateLvlFour();
-void SquarePattern(Rectangle& adRec,int speed, int leftX, int rightX, int topY, int bottomY);
-
+void SquarePatternRight(Rectangle& adRec,int speed, int leftX, int rightX, int topY, int bottomY, int direction);
+void SquarePatternLeft(Rectangle& adRec,int speed, int leftX, int rightX, int topY, int bottomY, int direction);
 
 
 #endif

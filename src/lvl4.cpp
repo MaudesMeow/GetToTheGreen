@@ -13,9 +13,9 @@ bool movingRighttoLeft = false;
 bool movingUpDown = false;
 bool movingDownUp = false;
 
-void SquarePattern(Rectangle& adRec,int speed, int leftX, int rightX, int topY, int bottomY)
+void SquarePatternRight(Rectangle& adRec,int speed, int leftX, int rightX, int topY, int bottomY, int direction)
 {
-    
+    //move left to right   
      if(adRec.y <= topY && adRec.x >= leftX )
      {
         movingDownUp = false;
@@ -24,6 +24,8 @@ void SquarePattern(Rectangle& adRec,int speed, int leftX, int rightX, int topY, 
         movingUpDown = true;
         
      }
+
+     //moving up to down
      if (adRec.x >= rightX && adRec.y <= bottomY )
     {
         movingLeftToRight = false;
@@ -33,7 +35,7 @@ void SquarePattern(Rectangle& adRec,int speed, int leftX, int rightX, int topY, 
         movingRighttoLeft = true;
         
     }
-
+    //moving right to left
     if(adRec.y >= bottomY && adRec.x > leftX )
     {
         movingUpDown = false;
@@ -41,7 +43,7 @@ void SquarePattern(Rectangle& adRec,int speed, int leftX, int rightX, int topY, 
         adRec.x += speed*GetFrameTime()*-1;
         movingDownUp = true;   
     }
-
+    //moving down up
     if(adRec.y <= bottomY && adRec.x <= leftX )
     {
         movingRighttoLeft = false;
@@ -50,6 +52,49 @@ void SquarePattern(Rectangle& adRec,int speed, int leftX, int rightX, int topY, 
         movingLeftToRight = true;
         
     }
+}
+
+void SquarePatternLeft(Rectangle& adRec,int speed, int leftX, int rightX, int topY, int bottomY, int direction)
+{
+    //moving down to up
+    if(adRec.y <= bottomY && adRec.x <= leftX )
+    {
+        movingRighttoLeft = true;
+        adRec.x = leftX;
+        adRec.y += speed*GetFrameTime();
+        movingLeftToRight = false;
+        
+    }
+    
+    //moving left to right
+     if(adRec.y <= topY && adRec.x >= leftX )
+     {
+        movingDownUp = true;
+        adRec.y = topY;
+        adRec.x += speed*GetFrameTime()*-1;
+        movingUpDown = false;
+        
+     }
+
+     if (adRec.x >= rightX && adRec.y <= bottomY )
+    {
+        movingLeftToRight = true;
+        
+        adRec.x = rightX;
+        adRec.y += speed*GetFrameTime()* -1;
+        movingRighttoLeft = false;
+        
+    }
+    //moving left to right
+    if(adRec.y >= bottomY && adRec.x >= leftX )
+    {
+        movingUpDown = true;
+        adRec.y = bottomY;
+        adRec.x += speed*GetFrameTime();
+        movingDownUp = false;   
+    }
+
+    
 }
 
 
@@ -75,17 +120,17 @@ void GenerateLvlFour()
                 //second square
                 if (ii ==1)
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{0,80}, Vector2{40,40}, 720.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{120,80}, Vector2{40,40}, 540.f));
                 }
                 //third square
                 if (ii ==6)
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{0,120}, Vector2{40,40}, 720.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{0,120}, Vector2{40,40}, 360.f));
                 }
                 //fourth square
                 if (ii ==7)
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{0,160}, Vector2{40,40}, 540.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{0,160}, Vector2{40,40}, 360.f));
                 }
                 
                 
@@ -93,7 +138,7 @@ void GenerateLvlFour()
                 //bottom right blocker
                 if (ii ==2)
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{screenWidth-40,screenHeight-250}, Vector2{40,250}, 540.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{screenWidth-40,screenHeight-250}, Vector2{40,175}, 540.f));
                 }
                 //top left blocker
                 if (ii ==3)
@@ -104,7 +149,7 @@ void GenerateLvlFour()
                 //top right blocker?
                 if (ii ==4)
                 {
-                    adversaries.push_back(GenerateAdversary(Vector2{screenWidth-40,0}, Vector2{40,250}, 540.f));
+                    adversaries.push_back(GenerateAdversary(Vector2{0,screenHeight-40}, Vector2{240,40}, 540.f));
                 }
                 
                 
@@ -128,6 +173,7 @@ void GenerateLvlFour()
     DrawRectangleRec(adversaries[2].adversaryRepresent, BLUE);
     DrawRectangleRec(adversaries[3].adversaryRepresent, BLUE);
     DrawRectangleRec(adversaries[4].adversaryRepresent, BLUE);
+    
     DrawRectangleRec(adversaries[5].adversaryRepresent, BLUE);
     DrawRectangleRec(adversaries[6].adversaryRepresent, BLUE);
     
@@ -139,15 +185,40 @@ void GenerateLvlFour()
 
     //-------------MOVEMENT-----------------------------------------------------//
 
+    //-----moving the bottom two blockers----//
+    adversaries[2].adversaryRepresent.y += adversaries[2].adversarySpeed*GetFrameTime();
 
-    SquarePattern(adversaries[0].adversaryRepresent,adversaries[0].adversarySpeed,leftX+25,rightX-80,topY+60,bottomY-60);
+        if ((adversaries[2].adversaryRepresent.y  < 0) || (adversaries[2].adversaryRepresent.y  > screenHeight - adversaries[2].adversaryRepresent.height))
+        {
+            adversaries[2].adversarySpeed *= -1;
+        }
 
-    SquarePattern(adversaries[1].adversaryRepresent,adversaries[1].adversarySpeed,leftX+85,rightX-140,topY+120,bottomY-120);
+    
 
 
-    SquarePattern(adversaries[5].adversaryRepresent,adversaries[5].adversarySpeed,leftX+145,rightX-200,180,screenHeight-180);
+    //------moving top left blocker-----//
+    adversaries[3].adversaryRepresent.x += adversaries[3].adversarySpeed*GetFrameTime();
 
-    SquarePattern(adversaries[6].adversaryRepresent,adversaries[5].adversarySpeed,leftX+205,rightX-260,240,screenHeight-240);
+        if ((adversaries[3].adversaryRepresent.x  < 0) || (adversaries[3].adversaryRepresent.x  > screenWidth - adversaries[3].adversaryRepresent.width))
+        {
+            adversaries[3].adversarySpeed *= -1;
+        }
+
+    adversaries[4].adversaryRepresent.x += adversaries[4].adversarySpeed*GetFrameTime();
+
+        if ((adversaries[4].adversaryRepresent.x  < 0) || (adversaries[4].adversaryRepresent.x  > screenWidth - adversaries[4].adversaryRepresent.width))
+        {
+            adversaries[4].adversarySpeed *= -1;
+        }
+
+    SquarePatternRight(adversaries[0].adversaryRepresent,adversaries[0].adversarySpeed,leftX+25,rightX-80,topY+60,bottomY-80,1);
+
+    SquarePatternLeft(adversaries[1].adversaryRepresent,adversaries[1].adversarySpeed,80,rightX-140,topY+120,screenHeight-120,-1);
+
+
+    SquarePatternRight(adversaries[5].adversaryRepresent,adversaries[5].adversarySpeed,leftX+145,rightX-200,180,screenHeight-180,1);
+
+    SquarePatternLeft(adversaries[6].adversaryRepresent,adversaries[5].adversarySpeed,leftX+205,rightX-260,240,screenHeight-240,-1);
 
     
 
@@ -155,20 +226,24 @@ void GenerateLvlFour()
 
     
      //-----------------losing or winning game!--------------------//
-    if (CheckCollisionRecs(player->playerRectangle, adversaries[0].adversaryRepresent))
+    for (int ii = 0; ii < adversaries.size(); ii++)
     {
-        playGame = 0;
-        playerWin = false;
-        adversaries[0].adversaryRepresent.x = 0;
-        adversaries[0].adversaryRepresent.y = 0;
-        
+        if (CheckCollisionRecs(player->playerRectangle, adversaries[ii].adversaryRepresent))
+        {
+            playGame = 0;
+            playerWin = false;
+            
+            
 
-        playerPos = {0,screenHeight/2};
-        playerSize = {20,20};
-        
-        
-        player = GeneratePlayer(playerPos, playerSize, 4.f);
+            playerPos = {0,screenHeight/2};
+            playerSize = {20,20};
+
+            
+            player = GeneratePlayer(playerPos, playerSize, 4.f);   
+            
+        }
     }
+
     
     //win game
     if (CheckCollisionRecs(player->playerRectangle, endPoint.endPointRepresent))
