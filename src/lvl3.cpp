@@ -39,7 +39,7 @@ void GenerateLvlThree()
                 
                 string val = to_string(ii);
                 cout << "here is enemy " << val << endl;
-                if (ii == 4)
+                if (ii == 1)
                 {
                     generateAdver = false;
                 }
@@ -107,7 +107,7 @@ void GenerateLvlThree()
     
      
 
-    for (int ii = 0; ii <6; ii++)
+    for (int ii = 0; ii <5; ii++)
     {
         if (CheckCollisionRecs(player->playerRectangle, adversaries[ii].adversaryRepresent))
         {

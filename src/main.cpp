@@ -44,7 +44,7 @@ int main(void)
 
             if (playGame == 0 && !playerWin && levelSelection > 0)
             {
-                DrawText("play again? oyu lost...", screenWidth/2, screenHeight/2, 20, WHITE);
+                DrawText("play again? you lost... \n (Y)es or (ESC) no", screenWidth/2, screenHeight/2, 20, WHITE);
                 if (IsKeyDown(KEY_Y))
                 {
                     playGame = 1;
@@ -63,6 +63,10 @@ int main(void)
                     case 3:
                         DrawText("third verse, more clastrophobic than the last!", 0, screenHeight/2, 20, WHITE);
                         break;
+                    case 4:
+                        DrawText("Sorry, this might make you dizzy.", 0, screenHeight/2, 20, WHITE);
+                        break;
+                        
                     default:
                         DrawText("play again? oyu won!...", screenWidth/2, screenHeight/2, 20, WHITE);
                         break;
@@ -75,8 +79,18 @@ int main(void)
                     adversaries.clear();
                 }
             }
+            else if (playGame == 0 && playerWin && levelSelection == 5)
+            {   
+                DrawText("Congrats, you beat the game! Play Again? \n (Y)es or (ESC) No?", screenWidth/2, screenHeight/2, 20, WHITE);
+                if (IsKeyDown(KEY_Y))
+                {
+                    levelSelection = 1;
+                }    
+            }
+            
             else 
             {
+                
                 
                 LevelGenerator(levelSelection);
 
